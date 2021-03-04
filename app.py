@@ -14,7 +14,7 @@ def index():
     return render_template("index.html", mars=mars) # to return an HTML template using an index.html fil AND , mars=mars) tells Python to use the "mars" collection in MongoDB.
 
 @app.route("/scrape") # defines the route
-   def scrape():
+def scrape():
     mars = mongo.db.mars
     mars_data = scraping.scrape_all() # scrape_all function in the scraping.py
     mars.update({}, mars_data, upsert=True)
