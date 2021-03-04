@@ -1,4 +1,4 @@
-from flask import Flask, render_template # Flask to render a template.
+from flask import Flask, render_template, request, redirect # Flask to render a template.
 from flask_pymongo import PyMongo # PyMongo to interact with our Mongo database.
 import scraping # will convert from Jupyter notebook to Python.
 
@@ -21,4 +21,4 @@ def scrape():
     return redirect('/', code=302)
 
 if __name__ == "__main__":
-   app.run()
+   app.run(debug=True)

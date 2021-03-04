@@ -1,4 +1,4 @@
-# Import Splinter, BeautifulSoup, and Pandas
+# Import Splinter, BeautifulSoup, and Pandas - 10.5.3
 from splinter import Browser
 from bs4 import BeautifulSoup as soup
 import pandas as pd
@@ -7,7 +7,9 @@ import datetime as dt
 
 def scrape_all():
     # Initiate headless driver for deployment
-    browser = Browser("chrome", executable_path="chromedriver", headless=True)
+    # Slack configuration for Mac
+    browser = Browser("chrome", **{'executable_path': '/usr/local/bin/chromedriver'}, headless=True)
+    # Kwars learning: https://www.geeksforgeeks.org/args-kwargs-python/
 
     news_title, news_paragraph = mars_news(browser)
 
@@ -52,6 +54,7 @@ def mars_news(browser):
 
     return news_title, news_p
 
+
 def featured_image(browser):
     # Visit URL
     url = 'https://data-class-jpl-space.s3.amazonaws.com/JPL_Space/index.html'
@@ -92,4 +95,9 @@ def mars_facts():
     df.set_index('Description', inplace=True)
 
     # Convert dataframe into HTML format, add bootstrap
-    return df.to_html()
+    return df.to_html(classes="table table-striped")
+
+if __name__ == "__main__":
+
+    # If running as script, print scraped data
+    print(scrape_all())
