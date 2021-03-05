@@ -8,7 +8,7 @@ import datetime as dt
 def scrape_all():
     # Initiate headless driver for deployment
     # Slack configuration for Mac
-    browser = Browser("chrome", **{'executable_path': '/usr/local/bin/chromedriver'}, headless=True)
+    browser = Browser("chrome", **{'executable_path': '/usr/local/bin/chromedriver'}, headless=True) # For Mac
     # Kwars learning: https://www.geeksforgeeks.org/args-kwargs-python/
 
     news_title, news_paragraph = mars_news(browser)
@@ -19,7 +19,8 @@ def scrape_all():
         "news_paragraph": news_paragraph,
         "featured_image": featured_image(browser),
         "facts": mars_facts(),
-        "last_modified": dt.datetime.now()
+        "last_modified": dt.datetime.now(),
+        "hemispheres": hemisphere_data(browser)
     }
 
     # Stop webdriver and return data
@@ -28,7 +29,6 @@ def scrape_all():
 
 
 def mars_news(browser):
-
     # Scrape Mars News
     # Visit the mars nasa news site
     url = 'https://mars.nasa.gov/news/'
@@ -96,6 +96,58 @@ def mars_facts():
 
     # Convert dataframe into HTML format, add bootstrap
     return df.to_html(classes="table table-striped")
+
+def hemisphere_data(browser):
+
+    # 1. Use browser to visit the URL 
+    url = 'https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars'
+    browser.visit(url)
+
+    # 2. Create a list to hold the images and titles. - Dictionary
+    hemisphere_list = []
+
+    # 3. Write code to retrieve the image urls and titles for each hemisphere.
+    html = browser.html
+    main_page_soup = soup(html, 'html.parser')  
+
+    # Range total items
+    list_range = len(main_page_soup.select("div.item"))
+
+    # for loop for each item
+    for i in range(list_range):
+
+        # Get A link for the i selected
+        link_image = main_page_soup.select("div.description a")[i].get('href')
+        
+        # Second page opened
+        browser.visit(f'https://astrogeology.usgs.gov{link_image}')
+        
+        # Parse again the new HTML page
+        html = browser.html
+        sample_image_soup = soup(html, 'html.parser')
+        
+        # Save the full .JPG for the selected hemisphere
+        img_url = sample_image_soup.select_one("div.downloads ul li a").get('href')
+        
+        # Save the img_title for the selected hemisphere
+        img_title = sample_image_soup.select_one("h2.title").get_text()
+        
+        # Create a dictionary for the selected hemisphere 
+        hemisphere = {'img_url': img_url,'title': img_title,  }
+        
+        # Append results dict to hemisphere image urls list
+        hemisphere_list.append(hemisphere)
+        
+        # Reset hemisphere
+        hemisphere = {}
+        
+        # Return to main page
+        browser.back()
+
+    print(hemisphere_list)
+    # Return the list that holds the dictionary of each image url and title
+    return hemisphere_list    
+
 
 if __name__ == "__main__":
 

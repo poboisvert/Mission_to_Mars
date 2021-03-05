@@ -20,5 +20,14 @@ def scrape():
     mars.update({}, mars_data, upsert=True)
     return redirect('/', code=302)
 
+@app.route("/clear") # defines the route
+def clear():
+    try:
+        mongo.db.mars.remove({})
+        return redirect('/', code=302)
+    except:
+        print("Hello")
+        return None
+
 if __name__ == "__main__":
    app.run(debug=True)
