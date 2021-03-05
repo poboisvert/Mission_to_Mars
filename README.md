@@ -1,8 +1,10 @@
 # Mission_to_Mars
 
+![preview](preview.png)
+
 ## Anaconda
 
-conda activate PythonData
+### Packages required
 
 ```pip install splinter
 pip install webdriver_manager
@@ -16,11 +18,19 @@ For Anaconda:
 conda install -c conda-forge python-chromedriver-binary
 ```
 
+### Start the projet
+
+> conda activate PythonData
+
+> python app.py
+
 This project need a matching version number for Google Chrome (Browser) and the webdriver_manager module.
 
 ## MongoDB
 
 Source: https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/
+
+This project use a database named "mars_app". Below are the commands to validate the active DB.
 
 > show dbs
 
