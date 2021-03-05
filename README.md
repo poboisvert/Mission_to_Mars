@@ -2,9 +2,11 @@
 
 ![preview](preview.png)
 
-## Anaconda
+## Packages required
 
 ### Packages required
+
+> conda activate PythonData
 
 ```pip install splinter
 pip install webdriver_manager
@@ -16,9 +18,13 @@ pip install flask_pymongo
 
 For Anaconda:
 conda install -c conda-forge python-chromedriver-binary
+
+For Mac
+> executable_path = {'executable_path': ChromeDriverManager().install()}
+> browser = Browser('chrome', **executable_path)
 ```
 
-### Start the projet
+### Run the projet
 
 > conda activate PythonData
 
