@@ -4,7 +4,7 @@
 
 ## Packages required
 
-Step:1 Activate a virtual environment to install the dependencies.
+Step 1: Activate a virtual environment to install the dependencies.
 
 > conda activate PythonData
 
@@ -39,6 +39,10 @@ Source: https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/
 > use mars_app
 
 > db.mars.find()
+
+> db.createCollection("mars")
+
+To delete:
 
 > db.dropDatabase()
 

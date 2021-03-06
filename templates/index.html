@@ -28,7 +28,8 @@
         <p>{{ message }}</p>
         {% endfor %}
       </div>
-      {% if mars.news_title is defined %}
+      <!-- IF DATA -->
+      {% if mars.news_paragraph is defined %}
 
       <!-- Add section for Mars News -->
       <div class="row" id="mars-news">
@@ -70,7 +71,7 @@
         <div class="page-header">
           <h2 class="text-center">Mars Hemispheres</h2>
         </div>
-
+        <!-- FOR -->
         {% for hemisphere in mars.hemispheres %}
         <div class="col-xs-8 col-md-6 col-lg-2">
           <div class="thumbnail">
@@ -83,13 +84,16 @@
             </div>
           </div>
         </div>
+        <!-- FOR END -->
         {% endfor %}
       </div>
+      <!-- ELSE DATA -->
       {% else %}
 
       <div class="alert alert-warning" role="alert">
         There is no data in the database. Please press Scrape New Data!
       </div>
+      <!-- END IF DATA -->
       {% endif %}
     </div>
   </body>

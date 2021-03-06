@@ -18,7 +18,7 @@ def index():
 def scrape():
     mars = mongo.db.mars # PyMongo to find the "mars" collection in our database
     mars_data = scraping.scrape_all() # scrape_all function in the scraping.py
-    mars.update({}, mars_data, upsert=True)
+    mars.replace_one({}, mars_data, upsert=True)
     return redirect('/', code=302)
 
 @app.route("/clear") # defines the route
