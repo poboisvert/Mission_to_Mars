@@ -1,12 +1,13 @@
-from flask import Flask, render_template, request, redirect # Flask to render a template.
+from flask import Flask, flash, render_template, request, redirect # Flask to render a template.
 from flask_pymongo import PyMongo # PyMongo to interact with our Mongo database.
 import scraping # will convert from Jupyter notebook to Python.
 
 app = Flask(__name__)
+app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
 # Use flask_pymongo to set up mongo connection 
 app.config["MONGO_URI"] = "mongodb://localhost:27017/mars_app" # connect to Mongo using a URI, a uniform resource identifier similar to a URL.
-mongo = PyMongo(app) # ocalhost server, using port 27017, using a database named "mars_app".
+mongo = PyMongo(app) # localhost server, using port 27017, using a database named "mars_app".
 
 @app.route("/")
 def index():
@@ -23,10 +24,17 @@ def scrape():
 @app.route("/clear") # defines the route
 def clear():
     try:
-        mongo.db.mars.remove({})
+        mars = mongo.db.mars.find_one()
+
+        if mars is None:
+            flash('No DB to reset')
+        else:
+            mongo.db.mars.remove({})
+            flash('You were successfully reset')
+
         return redirect('/', code=302)
     except:
-        print("Hello")
+        flash('Error during the reset')
         return None
 
 if __name__ == "__main__":

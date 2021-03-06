@@ -20,8 +20,8 @@ def scrape_all():
         "featured_image": featured_image(browser),
         "facts": mars_facts(),
         "last_modified": dt.datetime.now(),
-        "hemispheres": hemisphere_data(browser)
-    } # In app.py, it will be refer to mars. Line 18
+        "hemispheres": hemisphere_data(browser) # hemisphere will be call in templates/index.html
+    } # In app.py, it will be refer to mars. Line 20
 
     # Stop webdriver and return data
     browser.quit()
