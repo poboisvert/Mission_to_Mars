@@ -21,7 +21,7 @@ def scrape_all():
         "facts": mars_facts(),
         "last_modified": dt.datetime.now(),
         "hemispheres": hemisphere_data(browser)
-    }
+    } # In app.py, it will be refer to mars. Line 18
 
     # Stop webdriver and return data
     browser.quit()
