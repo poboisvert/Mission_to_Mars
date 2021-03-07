@@ -113,7 +113,30 @@ def hemisphere_data(browser):
         # Range total items
         # Add try/except for error handling
         try:
-            list_range = len(main_page_soup.select("div.item img.thumb")) # More precision
+            # Option 1 
+            #list_range = len(main_page_soup.select("div.item img.thumb")) # More precision
+
+            # Option 2
+            images = main_page_soup.findAll('img', class_='thumb')
+
+            # Validation if it has a src
+            for image in images:
+                if(not image["src"] or image["src"] == 0): 
+                    print("TEST IMG SRC: ERROR")
+                    break
+                else:
+                    print(image["src"])
+                    print("TEST IMG SRC: PASSED")
+            # Option 2 - END
+
+            # Create a range
+            if(len(images) == 0):
+                print("TEST LEN: ERROR")
+                list_range = 0
+            else:
+                print("TEST LEN: PASSED")
+                list_range = len(images)
+
         except AttributeError:
             return None
 
@@ -130,7 +153,7 @@ def hemisphere_data(browser):
             html = browser.html
             sample_image_soup = soup(html, 'html.parser')
             
-            # Save the full .JPG for the selected hemisphere
+            # Save the full .JPG for the selected hemisphere            
             img_url = sample_image_soup.select_one("div.downloads ul li a", class_='itemLink product-item').get('href') # DIV and CLASS precision
 
             # Save the img_title for the selected hemisphere
