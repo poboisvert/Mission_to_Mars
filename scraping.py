@@ -132,7 +132,7 @@ def hemisphere_data(browser):
             
             # Save the full .JPG for the selected hemisphere
             img_url = sample_image_soup.select_one("div.downloads ul li a", class_='itemLink product-item').get('href') # DIV and CLASS precision
-            
+
             # Save the img_title for the selected hemisphere
             img_title = sample_image_soup.select_one("h2.title").get_text()
             
