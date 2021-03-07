@@ -111,13 +111,17 @@ def hemisphere_data(browser):
         main_page_soup = soup(html, 'html.parser')  
 
         # Range total items
-        list_range = len(main_page_soup.select("div.item"))
+        # Add try/except for error handling
+        try:
+            list_range = len(main_page_soup.select("div.item img.thumb")) # More precision
+        except AttributeError:
+            return None
 
         # for loop for each item
         for i in range(list_range):
 
             # Get A link for the i selected
-            link_image = main_page_soup.select("div.description a")[i].get('href')
+            link_image = main_page_soup.select("div.description a", class_='itemLink product-item')[i].get('href') # DIV and CLASS precision
             
             # Second page opened
             browser.visit(f'https://astrogeology.usgs.gov{link_image}')
@@ -127,7 +131,7 @@ def hemisphere_data(browser):
             sample_image_soup = soup(html, 'html.parser')
             
             # Save the full .JPG for the selected hemisphere
-            img_url = sample_image_soup.select_one("div.downloads ul li a").get('href')
+            img_url = sample_image_soup.select_one("div.downloads ul li a", class_='itemLink product-item').get('href') # DIV and CLASS precision
             
             # Save the img_title for the selected hemisphere
             img_title = sample_image_soup.select_one("h2.title").get_text()

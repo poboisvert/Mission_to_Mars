@@ -2,6 +2,14 @@
 
 ![preview](preview.png)
 
+## Project Overview
+
+The purpose of this project is to aggregate texts and image URLs from one link in order to render the title, description and full resolution image with Flask and "render_template".
+
+## Resources
+
+- Software: Python 3.8.5, Jupyter 6.1.4 and Flask 1.1.2 under the virtual machine "source venv/bin/activate"
+
 ## Packages required
 
 Step 1: Activate a virtual environment to install the dependencies.
